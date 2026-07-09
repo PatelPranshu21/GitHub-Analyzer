@@ -2,10 +2,6 @@ import requests
 from typing import Optional, Dict, Any
 
 def fetch_github_user_profile(username: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetches user data from the GitHub API.
-    Returns a dictionary of specific user fields if found, or None if not found/error.
-    """
     url = f"https://api.github.com/users/{username}"
     
     try:
@@ -29,3 +25,25 @@ def fetch_github_user_profile(username: str) -> Optional[Dict[str, Any]]:
         return None
         
     return None
+
+def get_github_repositories(username):
+
+    url = f"https://api.github.com/users/{username}/repos"
+    headers = {"Accept": "application/vnd.github+json"}
+    
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()  # Raises an exception for 4xx or 5xx status codes
+    
+    repos_data = response.json()
+    
+    # Filter the list to include only the requested fields
+    filtered_repos = []
+    for repo in repos_data:
+        filtered_repos.append({
+            "name": repo.get("name"),
+            "stargazers_count": repo.get("stargazers_count"),
+            "forks_count": repo.get("forks_count"),
+            "language": repo.get("language")
+        })
+        
+    return filtered_repos
