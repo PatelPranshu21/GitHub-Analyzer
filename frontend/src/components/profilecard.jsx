@@ -1,47 +1,81 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
 
 const ProfileCard = ({ profile }) => {
-  // If no profile data is provided, return null to render nothing
-  if (!profile) {
-    return null;
-  }
+  if (!profile) return null;
 
-  const { avatar_url, login, name, followers, following, public_repos } = profile;
+  const {
+    avatar_url,
+    login,
+    name,
+    followers,
+    following,
+    public_repos,
+  } = profile;
 
   return (
-    <div style={{
-      border: '1px solid #e1e4e8',
-      borderRadius: '6px',
-      padding: '16px',
-      maxWidth: '320px',
-      backgroundColor: '#ffffff',
-      textAlign: 'center',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-    }}>
-      <img 
-        src={avatar_url} 
-        alt={`${login}'s avatar`} 
-        style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '12px' }} 
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ scale: 1.03 }}
+      className="
+        bg-white/10
+        backdrop-blur-md
+        border border-white/20
+        rounded-3xl
+        shadow-2xl
+        p-8
+        w-full
+        max-w-md
+        text-center
+      "
+    >
+      <img
+        src={avatar_url}
+        alt={`${login}'s avatar`}
+        className="w-28 h-28 rounded-full mx-auto mb-5 border-4 border-white/20"
       />
-      
-      <h2 style={{ margin: '0 0 4px 0', fontSize: '20px' }}>{name || login}</h2>
-      {name && <p style={{ color: '#586069', margin: '0 0 16px 0', fontSize: '14px' }}>@{login}</p>}
 
-      <div style={{ display: 'flex', justifyContent: 'space-around', borderTop: '1px solid #e1e4e8', paddingTop: '16px' }}>
+      <h2 className="text-3xl font-bold text-white">
+        {name || login}
+      </h2>
+
+      {name && (
+        <p className="text-slate-300 mt-2 mb-6">
+          @{login}
+        </p>
+      )}
+
+      <div className="border-t border-white/20 pt-6 grid grid-cols-3 gap-4">
         <div>
-          <span style={{ fontSize: '12px', color: '#586069', display: 'block' }}>Followers</span>
-          <strong style={{ fontSize: '16px' }}>{followers}</strong>
+          <p className="text-slate-400 text-sm">
+            Followers
+          </p>
+          <p className="text-xl font-bold text-white">
+            {followers}
+          </p>
         </div>
+
         <div>
-          <span style={{ fontSize: '12px', color: '#586069', display: 'block' }}>Following</span>
-          <strong style={{ fontSize: '16px' }}>{following}</strong>
+          <p className="text-slate-400 text-sm">
+            Following
+          </p>
+          <p className="text-xl font-bold text-white">
+            {following}
+          </p>
         </div>
+
         <div>
-          <span style={{ fontSize: '12px', color: '#586069', display: 'block' }}>Public Repos</span>
-          <strong style={{ fontSize: '16px' }}>{public_repos}</strong>
+          <p className="text-slate-400 text-sm">
+            Repositories
+          </p>
+          <p className="text-xl font-bold text-white">
+            {public_repos}
+          </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

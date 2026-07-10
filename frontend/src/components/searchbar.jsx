@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px' }}>
+    <form onSubmit={handleSubmit} className="flex gap-4 w-full max-w-xl" style={{ display: 'flex', gap: '8px' }}>
       <input
         type="text"
         placeholder="Enter GitHub username"
