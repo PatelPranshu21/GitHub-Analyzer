@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Modern blue to purple gradient representing AI, flow, and analytics -->
+    <linearGradient id="devscope-gradient" x1="10%" y1="90%" x2="90%" y2="10%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+    
+    <!-- Subtle glow effect for nodes -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Left Spine (Slightly curved to integrate with the bracket concept) -->
+  <path 
+    d="M 160 110 L 160 402" 
+    stroke="url(#devscope-gradient)" 
+    stroke-width="28" 
+    stroke-linecap="round" 
+  />
+
+  <!-- The "D" Outer Loop / Right Code Bracket (>) Hybrid -->
+  <!-- Shaped with a sharp corner to mimic a closing code bracket, but curved outer terminals for a clean "D" -->
+  <path 
+    d="M 160 110 C 270 110 390 170 390 256 C 390 342 270 402 160 402" 
+    stroke="url(#devscope-gradient)" 
+    stroke-width="28" 
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Analytics & Network Node lines (AI/Git Connections) -->
+  <path 
+    d="M 160 256 L 275 256" 
+    stroke="url(#devscope-gradient)" 
+    stroke-width="16" 
+    stroke-linecap="round" 
+    opacity="0.8"
+  />
+  <path 
+    d="M 160 110 L 275 256 L 160 402" 
+    stroke="url(#devscope-gradient)" 
+    stroke-width="12" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    opacity="0.6"
+  />
+
+  <!-- Network & Graph Nodes (Data Points) -->
+  <!-- Top Node -->
+  <circle cx="160" cy="110" r="22" fill="#030712" stroke="url(#devscope-gradient)" stroke-width="10" />
+  
+  <!-- Bottom Node -->
+  <circle cx="160" cy="402" r="22" fill="#030712" stroke="url(#devscope-gradient)" stroke-width="10" />
+  
+  <!-- Spine Middle Node (Git Branch Junction) -->
+  <circle cx="160" cy="256" r="22" fill="#030712" stroke="url(#devscope-gradient)" stroke-width="10" />
+  
+  <!-- Central AI / Decision Node -->
+  <circle 
+    cx="275" 
+    cy="256" 
+    r="26" 
+    fill="url(#devscope-gradient)" 
+    filter="url(#glow)"
+  />
+  <!-- Inner core of Central Node -->
+  <circle cx="275" cy="256" r="10" fill="#FFFFFF" />
+</svg>
