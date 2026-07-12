@@ -67,13 +67,50 @@ export default function SignupForm() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      console.log('Registering User:', formData);
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  if (!validateForm()) return;
+
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/auth/signup/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.ok) {
+      alert("Account created successfully!");
+
+      setFormData({
+        fullName: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } else {
+      console.log(data);
+      alert("Signup failed");
+    }
+  } catch (error) {
+    console.log(error);
+    alert("Server Error");
+  }
+};
   return (
     <div className="min-h-screen bg-[#030712] flex items-center justify-center p-4 relative overflow-hidden">
       {/* Ambient background glows */}

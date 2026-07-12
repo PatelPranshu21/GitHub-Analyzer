@@ -1,7 +1,8 @@
-const Signup = () => {
-  return (
-    <h1>Signup Page</h1>
-  );
-};
+
+import SignupForm from "../components/auth/SignupForm";
+
+function Signup() {
+  return <SignupForm />;
+}
 
 export default Signup;

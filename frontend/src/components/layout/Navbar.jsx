@@ -23,10 +23,16 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Dashboard', path: '/dashboard' },
     { name: 'About', path: '/about' },
   ];
 
+  const token = localStorage.getItem("access");
+const handleLogout = () => {
+  localStorage.removeItem("access");
+  localStorage.removeItem("refresh");
+  setIsOpen(false);
+  window.location.reload();
+};
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -93,22 +99,43 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop Auth Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link 
-              to="/login" 
-              className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="relative group px-5 py-2.5 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(147,51,234,0.3)]"
-            >
-              {/* Gradient BG background overlay */}
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 transition-transform duration-300 group-hover:scale-105" />
-              <span className="relative z-10">Sign Up</span>
-            </Link>
-          </div>
+         <div className="hidden md:flex items-center gap-4">
+  {token ? (
+    <>
+      <Link
+        to="/dashboard"
+        className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
+      >
+        Dashboard
+      </Link>
+
+      <button
+        onClick={handleLogout}
+        className="relative group px-5 py-2.5 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-[0_0_20px_rgba(239,68,68,0.2)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.3)]"
+      >
+        <span className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-500" />
+        <span className="relative z-10">Logout</span>
+      </button>
+    </>
+  ) : (
+    <>
+      <Link
+        to="/login"
+        className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
+      >
+        Login
+      </Link>
+
+      <Link
+        to="/signup"
+        className="relative group px-5 py-2.5 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(147,51,234,0.3)]"
+      >
+        <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 transition-transform duration-300 group-hover:scale-105" />
+        <span className="relative z-10">Sign Up</span>
+      </Link>
+    </>
+  )}
+</div>
 
           {/* Mobile Menu Toggle Button */}
           <div className="md:hidden">
@@ -158,23 +185,47 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+<div className="pt-4 border-t border-white/10 flex flex-col gap-3">
+  {token ? (
+    <>
+      <Link
+        to="/dashboard"
+        onClick={() => setIsOpen(false)}
+        className="w-full text-center py-3 text-slate-300 hover:text-white font-medium rounded-xl hover:bg-white/5 transition-colors"
+      >
+        Dashboard
+      </Link>
 
-              <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
-                <Link
-                  to="/login"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full text-center py-3 text-slate-300 hover:text-white font-medium rounded-xl hover:bg-white/5 transition-colors"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-center shadow-lg hover:brightness-110 transition-all"
-                >
-                  Sign Up
-                </Link>
-              </div>
+      <button
+        onClick={() => {
+          setIsOpen(false);
+          handleLogout();
+        }}
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold text-center shadow-lg"
+      >
+        Logout
+      </button>
+    </>
+  ) : (
+    <>
+      <Link
+        to="/login"
+        onClick={() => setIsOpen(false)}
+        className="w-full text-center py-3 text-slate-300 hover:text-white font-medium rounded-xl hover:bg-white/5 transition-colors"
+      >
+        Login
+      </Link>
+
+      <Link
+        to="/signup"
+        onClick={() => setIsOpen(false)}
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-center shadow-lg"
+      >
+        Sign Up
+      </Link>
+    </>
+  )}
+</div>
             </div>
           </motion.div>
         )}
