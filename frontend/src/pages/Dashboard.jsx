@@ -27,6 +27,8 @@ const [sortBy, setSortBy] = useState("stars");
   const [compareUser1, setCompareUser1] = useState("");
 const [compareUser2, setCompareUser2] = useState("");
 const [githubScore, setGithubScore] = useState(null);
+const [aiInsight, setAiInsight] = useState(null);
+const [loadingInsight, setLoadingInsight] = useState(false);
 
 const [comparisonData, setComparisonData] =
   useState(null);
@@ -175,6 +177,40 @@ const filteredRepositories = [...repositories]
       a.stargazers_count
   )
   .slice(0, 5);
+  const generateAIInsight = async () => {
+  if (!profile || !analytics) return;
+
+  setLoadingInsight(true);
+
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/auth/github-insight/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          profile,
+          analytics,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (response.ok) {
+     setAiInsight(data.insight);
+    } else {
+      alert(data.error || "Failed to generate insight");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server Error");
+  }
+
+  setLoadingInsight(false);
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-black text-white">
       <Container>
@@ -424,6 +460,99 @@ const filteredRepositories = [...repositories]
             <ProfileCard profile={profile} />
 
             <AnalyticsCard analytics={analytics} />
+            {profile && (
+  <div className="w-full flex justify-center my-6">
+    <button
+      onClick={generateAIInsight}
+      disabled={loadingInsight}
+      className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold hover:scale-105 transition"
+    >
+      {loadingInsight
+        ? "Generating..."
+        : "✨ Generate AI Insight"}
+    </button>
+  </div>
+)}
+{aiInsight && (
+  <div className="w-full max-w-5xl mx-auto">
+    <div className="rounded-2xl border border-violet-500/30 bg-slate-900/70 backdrop-blur-xl p-6 shadow-xl">
+      <h2 className="text-2xl font-bold text-violet-400 mb-4">
+        🤖 AI GitHub Insight
+      </h2>
+<div className="space-y-6">
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Developer Level
+    </h3>
+
+    <p>{aiInsight.developer_level}</p>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Portfolio Score
+    </h3>
+
+    <p>{aiInsight.portfolio_score}/10</p>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Strengths
+    </h3>
+
+    <ul className="list-disc ml-6">
+      {aiInsight.strengths.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Improvements
+    </h3>
+
+    <ul className="list-disc ml-6">
+      {aiInsight.improvements.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Next Steps
+    </h3>
+
+    <ol className="list-decimal ml-6">
+      {aiInsight.next_steps.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ol>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      Hiring Readiness
+    </h3>
+
+    <p>{aiInsight.hiring_readiness}</p>
+  </div>
+
+  <div>
+    <h3 className="text-xl font-bold text-violet-400">
+      AI Summary
+    </h3>
+
+    <p>{aiInsight.summary}</p>
+  </div>
+
+</div>
+    </div>
+  </div>
+)}
             <div className="w-full max-w-6xl flex flex-col md:flex-row gap-4 mb-6">
 
   <input

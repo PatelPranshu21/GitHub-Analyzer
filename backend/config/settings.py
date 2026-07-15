@@ -24,6 +24,7 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-_ry!0f4zntdd-%a*iy1_+&1ne5l2husk#@$hgb*uhiarg4a5g4'
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

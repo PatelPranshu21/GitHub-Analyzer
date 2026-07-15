@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import RegisterView
-from .views import GeminiTestView
+from .views import GroqTestView, GithubInsightView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -24,9 +24,10 @@ urlpatterns = [
         TokenRefreshView.as_view(),
         name="token_refresh"
     ),
-    path(
-    "ai/test/",
-    GeminiTestView.as_view(),
-    name="gemini_test"
+path("ai/test/", GroqTestView.as_view()),
+path(
+    "github-insight/",
+    GithubInsightView.as_view(),
+    name="github_insight"
 ),
 ]
