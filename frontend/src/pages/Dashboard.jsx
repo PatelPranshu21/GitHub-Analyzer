@@ -8,6 +8,7 @@ import AnalyticsCard from '../components/AnalyticsCard';
 import RepositoryTable from '../components/RepositoryTable';
 import LanguagePieChart from '../components/LanguagePieChart';
 import StarsBarChart from '../components/StarsBarChart';
+import AIInsight from "../components/AIInsight";
 
 import {
   getProfile,
@@ -410,23 +411,14 @@ const filteredRepositories = [...repositories]
         {/* Results */}
         {!loading && (
           <div className="flex flex-col items-center gap-8">
-            {profile && (
-  <div className="flex justify-end w-full max-w-5xl">
+           {profile && (
+  <div className="w-full flex justify-center my-6">
     <button
-      onClick={handleFavorite}
-      className="
-        px-5 py-2
-        rounded-xl
-        bg-yellow-500/20
-        border border-yellow-500/30
-        text-yellow-300
-        hover:bg-yellow-500/30
-        transition
-      "
+      onClick={generateAIInsight}
+      disabled={loadingInsight}
+      className="..."
     >
-      {favorites.includes(profile.login)
-        ? "★ Remove Favorite"
-        : "☆ Save Favorite"}
+      {loadingInsight ? "Generating..." : "✨ Generate AI Insight"}
     </button>
   </div>
 )}
@@ -473,87 +465,12 @@ const filteredRepositories = [...repositories]
     </button>
   </div>
 )}
-{aiInsight && (
-  <div className="w-full max-w-5xl mx-auto">
-    <div className="rounded-2xl border border-violet-500/30 bg-slate-900/70 backdrop-blur-xl p-6 shadow-xl">
-      <h2 className="text-2xl font-bold text-violet-400 mb-4">
-        🤖 AI GitHub Insight
-      </h2>
-<div className="space-y-6">
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Developer Level
-    </h3>
-
-    <p>{aiInsight.developer_level}</p>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Portfolio Score
-    </h3>
-
-    <p>{aiInsight.portfolio_score}/10</p>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Strengths
-    </h3>
-
-    <ul className="list-disc ml-6">
-      {aiInsight.strengths.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Improvements
-    </h3>
-
-    <ul className="list-disc ml-6">
-      {aiInsight.improvements.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Next Steps
-    </h3>
-
-    <ol className="list-decimal ml-6">
-      {aiInsight.next_steps.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ol>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      Hiring Readiness
-    </h3>
-
-    <p>{aiInsight.hiring_readiness}</p>
-  </div>
-
-  <div>
-    <h3 className="text-xl font-bold text-violet-400">
-      AI Summary
-    </h3>
-
-    <p>{aiInsight.summary}</p>
-  </div>
-
-</div>
-    </div>
-  </div>
-)}
-            <div className="w-full max-w-6xl flex flex-col md:flex-row gap-4 mb-6">
+<AIInsight
+    data={aiInsight}
+    loading={loadingInsight}
+    regenerate={generateAIInsight}
+/>
+    <div className="w-full max-w-6xl flex flex-col md:flex-row gap-4 mb-6">
 
   <input
     type="text"
