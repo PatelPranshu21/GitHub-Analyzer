@@ -8,7 +8,7 @@ import AnalyticsCard from '../components/AnalyticsCard';
 import RepositoryTable from '../components/RepositoryTable';
 import LanguagePieChart from '../components/LanguagePieChart';
 import StarsBarChart from '../components/StarsBarChart';
-import AIInsight from "../components/AIInsight";
+import AIInsight from "../components/ai/AIInsight";
 
 import {
   getProfile,
