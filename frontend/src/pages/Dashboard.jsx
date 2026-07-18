@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Container from '../components/layout/Container';
-
+import DashboardContainer from "../components/dashboard/DashboardContainer";
 import SearchBar from '../components/search/SearchBar';
 import Loader from '../components/Loader';
 import ProfileCard from '../components/ProfileCard';
@@ -30,6 +30,7 @@ const [compareUser2, setCompareUser2] = useState("");
 const [githubScore, setGithubScore] = useState(null);
 const [aiInsight, setAiInsight] = useState(null);
 const [loadingInsight, setLoadingInsight] = useState(false);
+const [activePage, setActivePage] = useState("overview");
 
 const [comparisonData, setComparisonData] =
   useState(null);
@@ -213,7 +214,11 @@ const filteredRepositories = [...repositories]
   setLoadingInsight(false);
 };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-black text-white">
+  <DashboardContainer
+    activePage={activePage}
+    setActivePage={setActivePage}
+  >
+ <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-black text-white">
       <Container>
 
         {/* Heading */}
@@ -570,7 +575,8 @@ const filteredRepositories = [...repositories]
         )}
 
       </Container>
-    </div>
+     </div>
+  </DashboardContainer>
   );
 };
 
