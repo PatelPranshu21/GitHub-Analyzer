@@ -152,26 +152,20 @@ export default function Topbar({ activePage }) {
 
         {/* User avatar */}
         <motion.button
-          type="button"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="
-            flex items-center gap-2 rounded-lg py-1 pl-1 pr-2
-            hover:bg-white/[0.06] transition-colors duration-200
-          "
-        >
-          <div
-            className="
-              flex h-8 w-8 items-center justify-center rounded-full
-              bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500
-              text-[12px] font-semibold text-white
-              ring-1 ring-white/10
-            "
-          >
-            DS
-          </div>
-          <ChevronDown className="hidden md:block h-4 w-4 text-slate-500" strokeWidth={2} />
-        </motion.button>
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.97 }}
+  className="
+    px-5 py-2
+    rounded-xl
+    bg-red-600
+    hover:bg-red-500
+    text-white
+    font-medium
+    transition
+  "
+>
+  Logout
+</motion.button>
       </div>
     </header>
   );
