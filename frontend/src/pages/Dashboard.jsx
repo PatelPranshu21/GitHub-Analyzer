@@ -10,6 +10,13 @@ import LanguagePieChart from '../components/LanguagePieChart';
 import StarsBarChart from '../components/StarsBarChart';
 import AIInsight from "../components/ai/AIInsight";
 import OverviewPage from "../components/dashboard/OverviewPage";
+import AIInsightPage from "../components/dashboard/AIInsightPage";
+import AnalyticsPage from "../components/dashboard/AnalyticsPage";
+import RepositoriesPage from "../components/dashboard/RepositoriesPage";
+import ComparePage from "../components/dashboard/ComparePage";
+import FavoritesPage from "../components/dashboard/FavoritesPage";
+import HistoryPage from "../components/dashboard/HistoryPage";
+import SettingsPage from "../components/dashboard/SettingsPage";
 
 import {
   getProfile,
@@ -221,7 +228,44 @@ const filteredRepositories = [...repositories]
   >
   
       <Container>
- <OverviewPage />
+{activePage === "overview" && (
+  <OverviewPage
+    onSearch={handleSearch}
+    profile={profile}
+    analytics={analytics}
+    githubScore={githubScore}
+    loading={loading}
+    error={error}
+  />
+)}
+
+{activePage === "ai-insight" && (
+  <AIInsightPage />
+)}
+
+{activePage === "analytics" && (
+  <AnalyticsPage />
+)}
+
+{activePage === "repositories" && (
+  <RepositoriesPage />
+)}
+
+{activePage === "compare" && (
+  <ComparePage />
+)}
+
+{activePage === "favorites" && (
+  <FavoritesPage />
+)}
+
+{activePage === "history" && (
+  <HistoryPage />
+)}
+
+{activePage === "settings" && (
+  <SettingsPage />
+)}
       </Container>
      
   </DashboardContainer>
