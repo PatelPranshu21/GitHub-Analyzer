@@ -240,19 +240,45 @@ const filteredRepositories = [...repositories]
 )}
 
 {activePage === "ai-insight" && (
-  <AIInsightPage />
+<AIInsightPage
+profile={profile}
+aiInsight={aiInsight}
+loadingInsight={loadingInsight}
+generateAIInsight={generateAIInsight}
+/>
 )}
 
 {activePage === "analytics" && (
-  <AnalyticsPage />
+<AnalyticsPage
+  analytics={analytics}
+  repositories={repositories}
+/>
 )}
 
 {activePage === "repositories" && (
-  <RepositoriesPage />
+  <RepositoriesPage
+  repositories={repositories}
+  filteredRepositories={filteredRepositories}
+  topRepositories={topRepositories}
+  repoSearch={repoSearch}
+  setRepoSearch={setRepoSearch}
+  selectedLanguage={selectedLanguage}
+  setSelectedLanguage={setSelectedLanguage}
+  languages={languages}
+  sortBy={sortBy}
+  setSortBy={setSortBy}
+/>
 )}
 
 {activePage === "compare" && (
-  <ComparePage />
+ <ComparePage
+  compareUser1={compareUser1}
+  setCompareUser1={setCompareUser1}
+  compareUser2={compareUser2}
+  setCompareUser2={setCompareUser2}
+  handleCompare={handleCompare}
+  comparisonData={comparisonData}
+/>
 )}
 
 {activePage === "favorites" && (
