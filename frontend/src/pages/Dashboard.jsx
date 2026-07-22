@@ -79,6 +79,8 @@ const handleCompare = async () => {
     setRepositories([]);
     try {
    const profileData = await getProfile(username);
+   console.log("Searching:", username);
+console.log("Length:", username.length);
 console.log("Profile:", profileData);
 
 const analyticsData = await getAnalytics(username);
@@ -102,12 +104,14 @@ console.log("Repositories:", repositoryData);
 
 setGithubScore(Math.round(score));
 
+
     const updatedSearches = [
   username,
   ...recentSearches.filter(
     (item) => item !== username
   ),
 ].slice(0, 5);
+
 
 setRecentSearches(updatedSearches);
 
@@ -282,7 +286,10 @@ generateAIInsight={generateAIInsight}
 )}
 
 {activePage === "favorites" && (
-  <FavoritesPage />
+  <FavoritesPage
+  favorites={favorites}
+  handleSearch={handleSearch}
+/>
 )}
 
 {activePage === "history" && (

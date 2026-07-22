@@ -1,13 +1,15 @@
 import requests
 from typing import Optional, Dict, Any
-
-def fetch_github_user_profile(username: str) -> Optional[Dict[str, Any]]:
+def fetch_github_user_profile(username):
     url = f"https://api.github.com/users/{username}"
-    
+
     try:
-        # Set a reasonable timeout to prevent hanging connections
         response = requests.get(url, timeout=5)
-        
+
+        print("GitHub URL:", url)
+        print("GitHub Status:", response.status_code)
+        print("GitHub Response:", response.text)
+
         if response.status_code == 200:
             data = response.json()
             return {
@@ -17,14 +19,12 @@ def fetch_github_user_profile(username: str) -> Optional[Dict[str, Any]]:
                 "following": data.get("following"),
                 "public_repos": data.get("public_repos"),
             }
-        elif response.status_code == 404:
-            return None
-            
-    except requests.RequestException:
-        # Gracefully handle connection errors, DNS resolution failures, or timeouts
+
         return None
-        
-    return None
+
+    except Exception as e:
+        print("ERROR:", e)
+        return None
 
 def get_github_repositories(username):
 

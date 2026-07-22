@@ -5,15 +5,19 @@ const API = axios.create({
 });
 
 export const getProfile = async (username) => {
+  console.log("USERNAME RECEIVED:", username);
+  console.log("REQUEST URL:", `/api/github/${username}/`);
+
   try {
     const response = await API.get(`/api/github/${username}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching profile for ${username}:`, error);
+    console.log("STATUS:", error.response?.status);
+    console.log("URL:", error.config?.url);
+    console.log("DATA:", error.response?.data);
     throw error;
   }
-};
-
+}
 export const getRepositories = async (username) => {
   try {
     const response = await API.get(`/api/github/${username}/repos/`);
