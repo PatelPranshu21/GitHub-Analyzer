@@ -5,11 +5,13 @@ import Loader from "../../components/Loader";
 
 export default function OverviewPage({
   onSearch,
-  githubScore,
   profile,
   analytics,
+  githubScore,
   loading,
   error,
+  handleFavorite,
+  favorites,
 }) {
   return (
     <>
@@ -62,7 +64,20 @@ export default function OverviewPage({
             </div>
           )}
 
-          {profile && <ProfileCard profile={profile} />}
+ {profile && (
+  <>
+    <button
+      onClick={handleFavorite}
+      className="mt-4 px-6 py-3 rounded-xl bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition"
+    >
+      {favorites.includes(profile.login)
+        ? "★ Remove Favorite"
+        : "☆ Add to Favorites"}
+    </button>
+
+    <ProfileCard profile={profile} />
+  </>
+)}
 
           {analytics && <AnalyticsCard analytics={analytics} />}
 

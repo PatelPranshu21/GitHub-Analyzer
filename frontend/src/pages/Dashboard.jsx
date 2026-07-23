@@ -233,14 +233,16 @@ const filteredRepositories = [...repositories]
   
       <Container>
 {activePage === "overview" && (
-  <OverviewPage
-    onSearch={handleSearch}
-    profile={profile}
-    analytics={analytics}
-    githubScore={githubScore}
-    loading={loading}
-    error={error}
-  />
+<OverviewPage
+  onSearch={handleSearch}
+  profile={profile}
+  analytics={analytics}
+  githubScore={githubScore}
+  loading={loading}
+  error={error}
+  handleFavorite={handleFavorite}
+  favorites={favorites}
+/>
 )}
 
 {activePage === "ai-insight" && (
@@ -286,18 +288,26 @@ generateAIInsight={generateAIInsight}
 )}
 
 {activePage === "favorites" && (
-  <FavoritesPage
+<FavoritesPage
   favorites={favorites}
   handleSearch={handleSearch}
+  setActivePage={setActivePage}
 />
 )}
 
 {activePage === "history" && (
-  <HistoryPage />
+ <HistoryPage
+  recentSearches={recentSearches}
+  handleSearch={handleSearch}
+  setActivePage={setActivePage}
+/>
 )}
 
 {activePage === "settings" && (
-  <SettingsPage />
+  <SettingsPage
+  setFavorites={setFavorites}
+  setRecentSearches={setRecentSearches}
+/>
 )}
       </Container>
      

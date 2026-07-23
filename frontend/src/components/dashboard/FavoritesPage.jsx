@@ -1,7 +1,8 @@
 export default function FavoritesPage({
   favorites,
   handleSearch,
-}){
+  setActivePage,
+}) {
   return(
     <>
       <h1 className="text-4xl font-bold mb-3">
@@ -24,7 +25,10 @@ export default function FavoritesPage({
               </h2>
 
               <button
-                onClick={() => handleSearch(user)}
+                onClick={async () => {
+  await handleSearch(user);
+  setActivePage("overview");
+}}
                 className="w-full py-2 rounded-xl bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition"
               >
                 Open Profile
